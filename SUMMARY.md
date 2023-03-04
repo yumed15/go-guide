@@ -1,3 +1,7 @@
 # Table of contents
 
-* [Page 1](README.md)
+* [Go-Guide](README.md)
+
+## Guidelines
+
+* [Page 2](guidelines/page-2.md)
