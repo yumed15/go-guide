@@ -1,4 +1,6 @@
 # Table of contents
 
 * [Go-Guide](README.md)
-* [Guidelines](guidelines.md)
+* [Interfaces](interfaces.md)
+* [Mutexes](mutexes.md)
+* [Slices](slices.md)
