@@ -7,6 +7,8 @@ Inspired by:
 * Luno's Go Style Guide
 * [Uber's Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md#format-strings-outside-printf)
 * [Google's Go Style Guide](https://google.github.io/styleguide/go/)
+* [Go Common Mistakes](https://github.com/golang/go/wiki/CommonMistakes)
+* [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
 
 Companies that use Go in production systems:
 
