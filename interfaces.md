@@ -77,7 +77,7 @@ func (h LogHandler) ServeHTTP(
 
 Methods with value receivers **** can be called on pointers as well as values.
 
-&#x20;Methods with pointer receivers can only be called on pointers or [addressable values](https://golang.org/ref/spec#Method\_values).
+Methods with pointer receivers can only be called on pointers or [addressable values](https://golang.org/ref/spec#Method\_values).
 
 ```go
 type S struct {
