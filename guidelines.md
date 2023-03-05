@@ -13,8 +13,6 @@ An interface is two fields:
 
 If you want interface methods to modify the underlying data, you must use a pointer.
 
-
-
 ### Verify Interface Compliance
 
 Verify interface compliance at compile time where appropriate. This includes:
@@ -77,6 +75,49 @@ func (h LogHandler) ServeHTTP(
 }
 ```
 
+### Receivers and Interfaces
+
+Methods with value receivers **** can be called on pointers as well as values.
+
+&#x20;Methods with pointer receivers can only be called on pointers or [addressable values](https://golang.org/ref/spec#Method\_values).
+
+```go
+type S struct {
+  data string
+}
+
+func (s S) Read() string {
+  return s.data
+}
+
+func (s *S) Write(str string) {
+  s.data = str
+}
+
+// We cannot get pointers to values stored in maps, because they are not
+// addressable values.
+sVals := map[int]S{1: {"A"}}
+
+// We can call Read on values stored in the map because Read
+// has a value receiver, which does not require the value to
+// be addressable.
+sVals[1].Read()
+
+// We cannot call Write on values stored in the map because Write
+// has a pointer receiver, and it's not possible to get a pointer
+// to a value stored in a map.
+//
+//  sVals[1].Write("test")
+
+sPtrs := map[int]*S{1: {"A"}}
+
+// You can call both Read and Write if the map stores pointers,
+// because pointers are intrinsically addressable.
+sPtrs[1].Read()
+sPtrs[1].Write("test")
+```
+
+\
 \
 \
 \
