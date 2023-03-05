@@ -1,4 +1,4 @@
-# Mutexes
+# Go Routines
 
 ### Zero-value Mutexes are Valid
 
@@ -65,5 +65,59 @@ func (m *SMap) Get(k string) string {
 ```
 
 The mutex and its methods are implementation details of `SMap` hidden from its callers.
+
+### Defer to Clean Up
+
+Use defer to clean up resources such as files and locks.
+
+```go
+// BAD
+p.Lock()
+if p.count < 10 {
+  p.Unlock()
+  return p.count
+}
+
+p.count++
+newCount := p.count
+p.Unlock()
+
+return newCount
+
+// easy to miss unlocks due to multiple returns
+```
+
+```go
+// GOOD
+p.Lock()
+defer p.Unlock()
+
+if p.count < 10 {
+  return p.count
+}
+
+p.count++
+return p.count
+
+// more readable
+```
+
+### Channel Size is One or None
+
+Channels should usually have a size of one or be unbuffered. By default, channels are unbuffered and have a size of zero. Any other size must be subject to a high level of scrutiny. Consider how the size is determined, what prevents the channel from filling up under load and blocking writers, and what happens when this occurs.
+
+```go
+// BAD
+// Ought to be enough for anybody!
+c := make(chan int, 64)
+```
+
+```go
+// GOOD
+// Size of one
+c := make(chan int, 1) // or
+// Unbuffered channel, size of zero
+c := make(chan int)
+```
 
 \
