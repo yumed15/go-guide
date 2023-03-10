@@ -1,4 +1,4 @@
-# Go Concurrency
+# Concurrency
 
 **Goroutines**
 

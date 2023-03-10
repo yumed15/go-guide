@@ -1,4 +1,4 @@
-# Go Methods
+# Methods
 
 **Receivers**
 
