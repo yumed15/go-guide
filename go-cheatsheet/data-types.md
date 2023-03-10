@@ -84,15 +84,13 @@ func main() {
 **Arrays**
 
 ```go
+var a [5]int // fixed size
 primes := [...]int{2, 3, 5, 7, 11, 13}
-fmt.Println(len(primes)) // => 6
-
-// Outputs: [2 3 5 7 11 13]
-fmt.Println(primes)
+var a [2][3]int
+pa := *[32]byte{}
 
 // Same as [:3], Outputs: [2 3 5]
 fmt.Println(primes[0:3])
-
 ```
 
 ```go
@@ -107,10 +105,11 @@ fmt.Println(a)   // => [Hello World]
 **Slices**
 
 ```go
+var s []int // dynamic size
 slice := []int{2, 3, 4}
 slice := []byte("Hello")
-
 s := make([]string, 3)
+
 s[0] = "a"
 s[1] = "b"
 s = append(s, "d")
