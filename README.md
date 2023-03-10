@@ -9,6 +9,11 @@ Inspired by:
 * [Google's Go Style Guide](https://google.github.io/styleguide/go/)
 * [Go Common Mistakes](https://github.com/golang/go/wiki/CommonMistakes)
 * [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
+* [100 Go Mistakes and How to Avoid Them](https://github.com/teivah/100-go-mistakes)
+* [Go Proverbs](https://go-proverbs.github.io/)
+* [The Zen of Go](https://the-zen-of-go.netlify.app/)
+* [Go Styleguide](https://github.com/bahlo/go-styleguide)
+* [Practical Go: Real world advice for writing maintainable Go programs](https://dave.cheney.net/practical-go/presentations/qcon-china.html)
 
 Companies that use Go in production systems:
 
@@ -24,12 +29,3 @@ Companies that use Go in production systems:
 * Shopify
 * Pinterest
 * Slack
-
-Resources:
-
-* [100 Go Mistakes and How to Avoid Them](https://github.com/teivah/100-go-mistakes)
-* [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
-* [Go Proverbs](https://go-proverbs.github.io/)
-* [The Zen of Go](https://the-zen-of-go.netlify.app/)
-* [Go Styleguide](https://github.com/bahlo/go-styleguide)
-* [Practical Go: Real world advice for writing maintainable Go programs](https://dave.cheney.net/practical-go/presentations/qcon-china.html)
