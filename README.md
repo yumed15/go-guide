@@ -1,6 +1,6 @@
 # Go-Guide
 
-Want to know how a large Go organization writes Go? Take a ride with this guide that covers guidelines, some performance issues, and stylistic concerns.
+This is an attempt for a guide that covers go guidelines, performance issues, and stylistic concerns.
 
 Inspired by:
 
@@ -24,3 +24,12 @@ Companies that use Go in production systems:
 * Shopify
 * Pinterest
 * Slack
+
+Resources:
+
+* [100 Go Mistakes and How to Avoid Them](https://github.com/teivah/100-go-mistakes)
+* [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
+* [Go Proverbs](https://go-proverbs.github.io/)
+* [The Zen of Go](https://the-zen-of-go.netlify.app/)
+* [Go Styleguide](https://github.com/bahlo/go-styleguide)
+* [Practical Go: Real world advice for writing maintainable Go programs](https://dave.cheney.net/practical-go/presentations/qcon-china.html)
