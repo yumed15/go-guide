@@ -1,4 +1,4 @@
-# Slices
+# Slices, Maps
 
 Slices and maps contain pointers to the underlying data so be wary of scenarios when they need to be copied.
 
