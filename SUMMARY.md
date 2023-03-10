@@ -14,3 +14,5 @@
 ## 📃 Go-CheatSheet
 
 * [Data Types](go-cheatsheet/data-types.md)
+* [Go Concurrency](go-cheatsheet/go-concurrency.md)
+* [Go Methods](go-cheatsheet/go-methods.md)
