@@ -19,3 +19,4 @@
 * [Functions](go-cheatsheet/functions.md)
 * [Methods](go-cheatsheet/methods.md)
 * [Interfaces](go-cheatsheet/interfaces.md)
+* [Generics](go-cheatsheet/generics.md)
