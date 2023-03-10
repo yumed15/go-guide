@@ -139,15 +139,29 @@ n := map[string]int{"foo": 1, "bar": 2}
 fmt.Println(n) // => map[bar:2 foo:1]
 ```
 
-Pointers
+**Functions**
 
-Channels
+```go
+// Function literals
 
-Functions
+r1, r2 := func() (string, string) {
+    x := []string{"hello", "quickref.me"}
+    return x[0], x[1]
+}()
 
-Interfaces
+// => hello quickref.me
+fmt.Println(r1, r2)
+```
 
+```go
+// Functions as values
 
-
-###
-
+func main() {
+    // assign a function to a name
+    add := func(a, b int) int {
+        return a + b
+    }
+    // use the name to call the function
+    fmt.Println(add(3, 4)) // => 7
+}
+```
