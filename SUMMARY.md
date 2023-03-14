@@ -20,3 +20,7 @@
 * [Methods](go-cheatsheet/methods.md)
 * [Interfaces](go-cheatsheet/interfaces.md)
 * [Generics](go-cheatsheet/generics.md)
+
+## 🧩 Principles and Patterns
+
+* [SOLID](principles-and-patterns/solid.md)
