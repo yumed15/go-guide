@@ -47,7 +47,7 @@ func main() {
 }
 ```
 
-not inheritance because we **can't override** the embedded's method implementation.
+not inheritance because Go doesn't have the keyword <mark style="color:red;">**this**</mark>**,** also we <mark style="color:red;">**can't override**</mark> the embedded's method implementation.
 
 {% tabs %}
 {% tab title="Java" %}
