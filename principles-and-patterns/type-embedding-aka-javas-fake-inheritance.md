@@ -94,9 +94,12 @@ public class Animals {
 roar
 I'm a kind of cat!
 ```
+
+In Java, `this` is a special implicit pointer that always has the runtime type of the class the method was originally invoked on. So `Tiger.Greet()` dispatches to `Cat.Greet()`, but the latter has a `this` pointer of type `Tiger`, and so `this.Speak()` dispatches to `Tiger.Speak()`.
 {% endtab %}
 
 {% tab title="Go" %}
+{% code lineNumbers="true" %}
 ```go
 type Animal interface {
 	Speak()
@@ -128,10 +131,17 @@ func main() {
 	x.Greet()
 }
 ```
+{% endcode %}
 
 ```
 meow
 I'm a kind of cat!
 ```
+
+In Golang, none of this happens. The `Cat.Greet()` method doesn't have a `this` pointer, it has a `Cat` receiver. When you call `Tiger.Greet()`, it's simply shorthand for `Tiger.Cat.Greet()`. The static type of the receiver in `Cat.Greet()` is the same as its runtime type, and so it dispatches to `Cat.Speak()`, not `Tiger.Speak()`.
 {% endtab %}
 {% endtabs %}
+
+#### Resources:
+
+* [https://www.dolthub.com/blog/2023-02-22-golangs-fake-inheritance/](https://www.dolthub.com/blog/2023-02-22-golangs-fake-inheritance/)
