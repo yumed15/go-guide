@@ -3,11 +3,11 @@
 ## ✍ Go-Style-Guide
 
 * [Go-Guide](README.md)
-* [Interfaces](go-style-guide/interfaces.md)
-* [Go Routines](go-style-guide/go-routines.md)
-* [Slices, Maps](go-style-guide/slices-maps.md)
-* [Time](go-style-guide/time.md)
-* [DI to Global Variables](go-style-guide/di-to-global-variables.md)
+* [Interfaces](interfaces.md)
+* [Go Routines](go-routines.md)
+* [Slices, Maps](slices.md)
+* [Time](time.md)
+* [DI to Global Variables](di-to-global-variables.md)
 * [Field tags in marshaled structs](go-style-guide/field-tags-in-marshaled-structs.md)
 * [Performance Optimisation](go-style-guide/performance-optimisation.md)
 
@@ -24,3 +24,4 @@
 ## 🧩 Principles and Patterns
 
 * [SOLID](principles-and-patterns/solid.md)
+* [Type Embedding aka Java's Fake Inheritance](principles-and-patterns/type-embedding-aka-javas-fake-inheritance.md)
