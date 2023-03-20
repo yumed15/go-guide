@@ -1,5 +1,51 @@
 # Concurrency
 
+## **Goroutines** <a href="#goroutines" id="goroutines"></a>
+
+_= special class of **nonpreemptive** (cannot be interrupted) **coroutines** (higher level of OS abstraction)_&#x20;
+
+Ways of declaring:
+
+```go
+func main() {
+    go sayHello()
+}
+
+func sayHello() {
+    fmt.Println("hello")
+}
+```
+
+```go
+go func() {
+    fmt.Println("hello")
+}() // <--- the anonymous function must be invoked immediately
+```
+
+```go
+sayHello := func() {
+    fmt.Println("hello")
+}
+go sayHello()
+```
+
+#### **Scheduling**
+
+Go's mechanism for hosting goroutines is an implementation of what's called an <mark style="color:yellow;">**M:N scheduler**</mark>:
+
+* it maps M green threads on N OS threads
+* goroutines are then scheduled onto the green threads
+* when we have more goroutines than green threads available, the scheduler handles the distribution of the goroutines across the available threads and ensured that when these goroutines become blocked, other goroutines can run
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+Go follows a model of concurrency called the <mark style="color:yellow;">**fork-join model**</mark>:
+
+* fork - at any point in the program, a _**child**_ branch of execution can be split off and run concurrently with its _**parent**_
+* join - at some point in the future, the concurrent branches of execution will join back together
+
+![](<../.gitbook/assets/image (1).png>)
+
 **Mutex**
 
 `Mutex` (MUTual EXclusion) provides a lock that can only be accessed by one goroutine at a time. This is used to synchronize data across multiple goroutines. Attempting to lock a `Mutex` will block (wait) until it is safe to do so. Once locked, the protected data can be operated upon since all other goroutines are forced to wait until the lock is available. Unlock the `Mutex` once work is completed, so other goroutines can access it.
