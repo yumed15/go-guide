@@ -33,7 +33,7 @@ e.g. In a single-core CPU, you can have concurrency but not parallelism.
 | Memory Space               | goroutines use only <mark style="color:yellow;"></mark> <mark style="color:yellow;"></mark><mark style="color:yellow;">**2 KB**</mark>** of memory space**.                                                                                                            | threads take <mark style="color:yellow;">**2 MB**</mark>** of memory space**                                                                                                                                                                                                                                                                                                                                                                                                |
 | Communication Coordination | <p>through built in <mark style="color:yellow;"><strong>primivate channels</strong></mark> which are built to handle race conditions => safe and prevents explicit locking; <br><br>the data structure that is shared between goroutines doesn't have to be locked</p> | <ul><li>Threaded programming uses <mark style="color:yellow;"><strong>locks</strong></mark> in order to access a shared variable. These can to lead to deadlocks and race conditions which are difficult to detect.</li><li>Can only speak to one another through <mark style="color:yellow;"><strong>return values</strong></mark> or <mark style="color:yellow;"><strong>shared (volatile) variables</strong></mark> and are highly costly to build and manage.</li></ul> |
 | Scheduling                 | scheduling of goroutines is done by <mark style="color:yellow;">**go runtime**</mark> and hence it is quite faster => context switching is faster                                                                                                                      | the scheduling of threads is done by <mark style="color:yellow;">**OS runtime**</mark> => context switching is slower                                                                                                                                                                                                                                                                                                                                                       |
-|                            | not automatically garbage collected                                                                                                                                                                                                                                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Garbage Collection         | not automatically garbage collected                                                                                                                                                                                                                                    | Once the thread dies its native memory and stack are freed immediately without needing to be GC. However, the `Thread` object is like any other object and it lives until it the GC has decided it can be freed e.g. there is no strong reference to it.                                                                                                                                                                                                                    |
 |                            | thousands of goroutines are multiplexed on one or two OS threads.                                                                                                                                                                                                      | if you launch 1000 threads in JAVA then it would consume lot of resources and these 1000 threads needs to be managed by OS. Moreover each of these threads will be more than 1 MB in size                                                                                                                                                                                                                                                                                   |
 
 ## **Scheduling**
@@ -68,16 +68,20 @@ Go follows a model of concurrency called the <mark style="color:yellow;">**fork-
 
 To make sure your goroutines execute before the main goroutine we need <mark style="color:yellow;">**join points**</mark>. These can be created via:
 
-### sync.waitGroup() <a href="#goroutines" id="goroutines"></a>
+### The sync package <a href="#goroutines" id="goroutines"></a>
+
+#### WaitGroup primitive
+
+_for waiting for a set of concurrent operations to complete when you either don't care about the result of the concurrent operation, or you have other means of collecting their results_
 
 ```go
 var wg sync.WaitGroup
 sayHello := func() {
-    defer wg.Done()
+    defer wg.Done() // <- before we exit the goroutine, we indicate to the WaitGroup that we have exited
     fmt.Println("hello")
 }
-wg.add(1)
-go sayHello()
+wg.add(1) // <- one goroutine is starting
+go sayHello() 
 wg.Wait() // <---- join point
 ```
 
