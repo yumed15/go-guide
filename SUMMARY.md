@@ -25,3 +25,7 @@
 
 * [SOLID](principles-and-patterns/solid.md)
 * [Type Embedding aka Java's Fake Inheritance](principles-and-patterns/type-embedding-aka-javas-fake-inheritance.md)
+
+## 📚 Go-In-Depth
+
+* [Go/Java Concurrency](go-in-depth/go-java-concurrency.md)
