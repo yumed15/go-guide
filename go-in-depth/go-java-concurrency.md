@@ -292,7 +292,7 @@ subscribe(button.Clicked, func() {
 </strong>clickRegistered.Wait()
 </code></pre>
 
-#### Once
+### Once
 
 ensures that only **one call to `Do`** ever calls the function passed in
 
