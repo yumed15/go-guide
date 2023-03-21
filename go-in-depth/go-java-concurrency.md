@@ -183,3 +183,19 @@ _same as Mutex but it provides a read/write lock. We can have a multiple number 
 
 <figure><img src="../.gitbook/assets/Microservice Communication (4).jpg" alt=""><figcaption></figcaption></figure>
 
+#### Cond
+
+_a rendezvous point for goroutines waiting for or announcing the occurence of an event (=signal between 2 or more goroutines, has no info other than it happened)._
+
+{% code lineNumbers="true" %}
+```go
+c := sync.NewCond(&sync.Mutex{})
+c.L.Lock()
+for conditionTrue() == false {
+    c.Wait() // <--- we wait to be notified that the condition has occurred
+             // this is a blocking call and the goroutine will be suspended
+             // allows other goroutines to run on the OS thread
+}
+c.L.Unlock()
+```
+{% endcode %}
