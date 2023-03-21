@@ -33,6 +33,7 @@ e.g. In a single-core CPU, you can have concurrency but not parallelism.
 | Memory Space               | goroutines use only <mark style="color:yellow;"></mark> <mark style="color:yellow;"></mark><mark style="color:yellow;">**2 KB**</mark>** of memory space**.                                                                                                            | threads take <mark style="color:yellow;">**2 MB**</mark>** of memory space**                                                                                                                                                                                                                                                                                                                                                                                                |
 | Communication Coordination | <p>through built in <mark style="color:yellow;"><strong>primivate channels</strong></mark> which are built to handle race conditions => safe and prevents explicit locking; <br><br>the data structure that is shared between goroutines doesn't have to be locked</p> | <ul><li>Threaded programming uses <mark style="color:yellow;"><strong>locks</strong></mark> in order to access a shared variable. These can to lead to deadlocks and race conditions which are difficult to detect.</li><li>Can only speak to one another through <mark style="color:yellow;"><strong>return values</strong></mark> or <mark style="color:yellow;"><strong>shared (volatile) variables</strong></mark> and are highly costly to build and manage.</li></ul> |
 | Scheduling                 | scheduling of goroutines is done by <mark style="color:yellow;">**go runtime**</mark> and hence it is quite faster => context switching is faster                                                                                                                      | the scheduling of threads is done by <mark style="color:yellow;">**OS runtime**</mark> => context switching is slower                                                                                                                                                                                                                                                                                                                                                       |
+|                            | not automatically garbage collected                                                                                                                                                                                                                                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 |                            | thousands of goroutines are multiplexed on one or two OS threads.                                                                                                                                                                                                      | if you launch 1000 threads in JAVA then it would consume lot of resources and these 1000 threads needs to be managed by OS. Moreover each of these threads will be more than 1 MB in size                                                                                                                                                                                                                                                                                   |
 
 ## **Scheduling**
@@ -67,4 +68,60 @@ Go follows a model of concurrency called the <mark style="color:yellow;">**fork-
 
 To make sure your goroutines execute before the main goroutine we need <mark style="color:yellow;">**join points**</mark>. These can be created via:
 
-1. sync.waitGroup()
+### sync.waitGroup() <a href="#goroutines" id="goroutines"></a>
+
+```go
+var wg sync.WaitGroup
+sayHello := func() {
+    defer wg.Done()
+    fmt.Println("hello")
+}
+wg.add(1)
+go sayHello()
+wg.Wait() // <---- join point
+```
+
+**Closures** = _a function value that references variables from outside its body._
+
+With closures, we'd have **to pass a copy of the variable** into the closure so by the time a goroutine is run, it will be operating on the data from its iteration of the loop.
+
+{% tabs %}
+{% tab title="BAD" %}
+```go
+var wg sync.WaitGroup
+for _, salutation := range []string{"hello", "greetings", "good day"} {
+    wg.Add(1)
+    go func() {
+        defer wg.Done()
+        fmt.Println(salutation)
+    }()
+}
+wg.Wait()
+
+// good day
+// good day
+// good day
+```
+{% endtab %}
+
+{% tab title="GOOD" %}
+```go
+var wg sync.WaitGroup
+for _, salutation := range []string{"hello", "greetings", "good day"} {
+    wg.Add(1)
+    go func(salutation string) {
+        defer wg.Done()
+        fmt.Println(salutation)
+    }(salutation) // <-- we pass in the current iteration's variable to the closure. 
+                  // a copy of the string struct is made
+                  // when the goroutine is run, we'll be refering to the proper string
+}
+wg.Wait()
+
+// good day
+// hello
+// greetings
+```
+{% endtab %}
+{% endtabs %}
+
