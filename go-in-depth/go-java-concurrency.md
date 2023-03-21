@@ -74,18 +74,15 @@ To make sure your goroutines execute before the main goroutine we need <mark sty
 
 _for waiting for a set of concurrent operations to complete when you either don't care about the result of the concurrent operation, or you have other means of collecting their results_
 
-{% code lineNumbers="true" %}
-```go
-var wg sync.WaitGroup
+<pre class="language-go" data-line-numbers><code class="lang-go">var wg sync.WaitGroup
 sayHello := func() {
-    defer wg.Done() // <- before we exit the goroutine, we indicate to the WaitGroup that we have exited
-    fmt.Println("hello")
+<strong>    defer wg.Done() // &#x3C;- before we exit the goroutine, we indicate to the WaitGroup that we have exited
+</strong>    fmt.Println("hello")
 }
-wg.add(1) // <- one goroutine is starting
-go sayHello() 
-wg.Wait() // <---- join point
-```
-{% endcode %}
+<strong>wg.add(1) // &#x3C;- one goroutine is starting
+</strong>go sayHello() 
+<strong>wg.Wait() // &#x3C;---- join point
+</strong></code></pre>
 
 **Closures** = _a function value that references variables from outside its body._
 
@@ -113,16 +110,14 @@ wg.Wait()
 {% endtab %}
 
 {% tab title="GOOD" %}
-{% code lineNumbers="true" %}
-```go
-var wg sync.WaitGroup
+<pre class="language-go" data-line-numbers><code class="lang-go">var wg sync.WaitGroup
 for _, salutation := range []string{"hello", "greetings", "good day"} {
     wg.Add(1)
-    go func(salutation string) {
-        defer wg.Done()
+<strong>    go func(salutation string) {
+</strong>        defer wg.Done()
         fmt.Println(salutation)
-    }(salutation) // <-- we pass in the current iteration's variable to the closure. 
-                  // a copy of the string struct is made
+<strong>    }(salutation) // &#x3C;-- we pass in the current iteration's variable to the closure. 
+</strong>                  // a copy of the string struct is made
                   // when the goroutine is run, we'll be refering to the proper string
 }
 wg.Wait()
@@ -130,8 +125,7 @@ wg.Wait()
 // good day
 // hello
 // greetings
-```
-{% endcode %}
+</code></pre>
 {% endtab %}
 {% endtabs %}
 
@@ -149,20 +143,20 @@ Shares memory by creating a convention developers must follow to synchronise acc
 var lock sync.Mutex
 
 increment := func() {
-    lock.Lock() // &#x3C;--- locking section
-    defer lock.Unlock() // &#x3C;--- unlocking
-    count++
+<strong>    lock.Lock() // &#x3C;--- locking section
+</strong><strong>    defer lock.Unlock() // &#x3C;--- unlocking
+</strong>    count++
 }
 
 decrement := func() {
-    lock.Lock() 
-    defer lock.Unlock()
-    count--
+<strong>    lock.Lock() 
+</strong><strong>    defer lock.Unlock()
+</strong>    count--
 }
 
 var arithmetic sync.WaitGroup
-<strong>for i := 0; i&#x3C;=5; i++ {
-</strong>    arithmetic.Add(1)
+for i := 0; i&#x3C;=5; i++ {
+    arithmetic.Add(1)
     go func() {
         defer arithmetic.Done()
         increment()
