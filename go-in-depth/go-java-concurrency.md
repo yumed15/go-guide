@@ -74,6 +74,7 @@ To make sure your goroutines execute before the main goroutine we need <mark sty
 
 _for waiting for a set of concurrent operations to complete when you either don't care about the result of the concurrent operation, or you have other means of collecting their results_
 
+{% code lineNumbers="true" %}
 ```go
 var wg sync.WaitGroup
 sayHello := func() {
@@ -84,6 +85,7 @@ wg.add(1) // <- one goroutine is starting
 go sayHello() 
 wg.Wait() // <---- join point
 ```
+{% endcode %}
 
 **Closures** = _a function value that references variables from outside its body._
 
@@ -91,6 +93,7 @@ With closures, we'd have **to pass a copy of the variable** into the closure so 
 
 {% tabs %}
 {% tab title="BAD" %}
+{% code lineNumbers="true" %}
 ```go
 var wg sync.WaitGroup
 for _, salutation := range []string{"hello", "greetings", "good day"} {
@@ -106,9 +109,11 @@ wg.Wait()
 // good day
 // good day
 ```
+{% endcode %}
 {% endtab %}
 
 {% tab title="GOOD" %}
+{% code lineNumbers="true" %}
 ```go
 var wg sync.WaitGroup
 for _, salutation := range []string{"hello", "greetings", "good day"} {
@@ -126,6 +131,54 @@ wg.Wait()
 // hello
 // greetings
 ```
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
+#### Mutex
+
+_provides a concurrent-safe way to express exclusive access to these shared resources._
+
+{% hint style="warning" %}
+Shares memory by creating a convention developers must follow to synchronise access to the memory.
+{% endhint %}
+
+<pre class="language-go" data-line-numbers><code class="lang-go">var count int
+var lock sync.Mutex
+
+increment := func() {
+    lock.Lock() // &#x3C;--- locking section
+    defer lock.Unlock() // &#x3C;--- unlocking
+    count++
+}
+
+decrement := func() {
+    lock.Lock() 
+    defer lock.Unlock()
+    count--
+}
+
+var arithmetic sync.WaitGroup
+<strong>for i := 0; i&#x3C;=5; i++ {
+</strong>    arithmetic.Add(1)
+    go func() {
+        defer arithmetic.Done()
+        increment()
+    }
+}
+
+for i := 0; i&#x3C;=5; i++ {
+    arithmetic.Add(1)
+    go func() {
+        defer arithmetic.Done()
+        decrement()
+    }
+}
+
+</code></pre>
+
+#### RWMutex
+
+_same as Mutex but it provides a read/write lock. We can have a multiple number of readers holding a reader lock as long as nobody is holding a writer lock._
+
+__
