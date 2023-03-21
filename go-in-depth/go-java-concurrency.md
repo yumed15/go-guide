@@ -89,13 +89,11 @@ sayHello := func() {
 go sayHello()
 ```
 
-## **Synchronizing goroutines** <a href="#goroutines" id="goroutines"></a>
+## **Synchronizing goroutines -** via sync package <a href="#goroutines" id="goroutines"></a>
 
 To make sure your goroutines execute before the main goroutine we need <mark style="color:yellow;">**join points**</mark>. These can be created via:
 
-### The sync package <a href="#goroutines" id="goroutines"></a>
-
-#### WaitGroup primitive
+### WaitGroup primitive
 
 _for waiting for a set of concurrent operations to complete when you either don't care about the result of the concurrent operation, or you have other means of collecting their results_
 
@@ -154,7 +152,7 @@ wg.Wait()
 {% endtab %}
 {% endtabs %}
 
-#### Mutex
+### Mutex
 
 _provides a concurrent-safe way to express exclusive access to these shared resources._
 
@@ -198,7 +196,7 @@ for i := 0; i&#x3C;=5; i++ {
 
 </code></pre>
 
-#### RWMutex
+### RWMutex
 
 _same as Mutex but it provides a read/write lock. We can have a multiple number of readers holding a reader lock as long as nobody is holding a writer lock._
 
@@ -208,7 +206,7 @@ _same as Mutex but it provides a read/write lock. We can have a multiple number 
 
 <figure><img src="../.gitbook/assets/Microservice Communication (4).jpg" alt=""><figcaption></figcaption></figure>
 
-#### Cond
+### Cond
 
 _a rendezvous point for goroutines waiting for or announcing the occurence of an event (=signal between 2 or more goroutines, has no info other than it happened)._
 
@@ -256,44 +254,60 @@ for i:=0; i<10; i++ {
 
 **`Brodcast`** - sends signal to all waiting goroutines
 
-{% code lineNumbers="true" %}
-```go
-type Button struct { // contains a condition
-    Clicked *sync.Cond
-}
+<pre class="language-go" data-line-numbers><code class="lang-go">type Button struct { // contains a condition
+<strong>    Clicked *sync.Cond
+</strong>}
 
-button := Button{Clicked: sync.NewCond(&sync.Mutex{})}
-
+<strong>button := Button{Clicked: sync.NewCond(&#x26;sync.Mutex{})}
+</strong>
 subscribe := func(c *sync.Cond, fn func()) { // allows us to register functions
     var goroutineRunning sync.WaitGroup      // to handle signals from conditions
     goroutineRunning.Add(1)
     
     go func() {
         goroutineRunning.Done()
-        c.L.Lock()
-        defer c.L.Unlock()
-        c.Wait()
+<strong>        c.L.Lock()
+</strong><strong>        defer c.L.Unlock()
+</strong>        c.Wait()
         fn()
     }()
     goroutineRunning.Wait()
-    
-    var clickRegistered sync.WaitGroup
-    clickRegistered.Add(3)
-    subscribe(button.Clicked, func() {
-        // do smth
-        clickRegistered.Done()
-    })
-    subscribe(button.Clicked, func() {
-        // do smth
-        clickRegistered.Done()
-    })
-    subscribe(button.Clicked, func() {
-        // do smth
-        clickRegistered.Done()
-    })
-    
-    button.Clicked.Broadcast()
-    clickRegistered.Wait()
 }
-```
-{% endcode %}
+var clickRegistered sync.WaitGroup
+clickRegistered.Add(3)
+<strong>subscribe(button.Clicked, func() {
+</strong>    // do smth
+    clickRegistered.Done()
+})
+subscribe(button.Clicked, func() {
+    // do smth
+    clickRegistered.Done()
+})
+subscribe(button.Clicked, func() {
+    // do smth
+    clickRegistered.Done()
+})
+    
+<strong>button.Clicked.Broadcast()
+</strong>clickRegistered.Wait()
+</code></pre>
+
+#### Once
+
+ensures that only **one call to `Do`** ever calls the function passed in
+
+{% hint style="danger" %}
+counts the **no of times `Do`** is called**, not how many unique functions passed into `Do`** are called
+{% endhint %}
+
+<pre class="language-go" data-line-numbers><code class="lang-go">var count int
+increment := func() {count++}
+decrement := func() {count--}
+
+var once sync.Once
+<strong>once.Do(increment)
+</strong><strong>once.Do(decrement)
+</strong>
+fmt.Println(count) // 1
+</code></pre>
+
