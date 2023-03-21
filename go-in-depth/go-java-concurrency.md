@@ -64,6 +64,31 @@ Go follows a model of concurrency called the <mark style="color:yellow;">**fork-
 
 ![](<../.gitbook/assets/image (5).png>)
 
+## **Ways of declaring goroutines** <a href="#goroutines" id="goroutines"></a>
+
+```go
+func main() {
+    go sayHello()
+}
+
+func sayHello() {
+    fmt.Println("hello")
+}
+```
+
+```go
+go func() {
+    fmt.Println("hello")
+}() // <--- the anonymous function must be invoked immediately
+```
+
+```go
+sayHello := func() {
+    fmt.Println("hello")
+}
+go sayHello()
+```
+
 ## **Synchronizing goroutines** <a href="#goroutines" id="goroutines"></a>
 
 To make sure your goroutines execute before the main goroutine we need <mark style="color:yellow;">**join points**</mark>. These can be created via:
