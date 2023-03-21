@@ -187,6 +187,10 @@ _same as Mutex but it provides a read/write lock. We can have a multiple number 
 
 _a rendezvous point for goroutines waiting for or announcing the occurence of an event (=signal between 2 or more goroutines, has no info other than it happened)._
 
+**`sync.NewCond(&sync.Mutex{})`** with 2 methods&#x20;
+
+* **`Signal`** - notifies goroutines (runtime picks the one that has been waiting the longest) blocked on a `Wait` call that the condition has been triggered
+
 {% code lineNumbers="true" %}
 ```go
 c := sync.NewCond(&sync.Mutex{})
@@ -197,5 +201,74 @@ for conditionTrue() == false {
              // allows other goroutines to run on the OS thread
 }
 c.L.Unlock()
+```
+{% endcode %}
+
+{% code lineNumbers="true" %}
+```go
+c := sync.NewCond(&sync.Mutex{})
+queue := male([]interface{}, 0, 10)
+
+removeFromQueue := func(delay time.Duration) {
+    time.Sleep(delay)
+    c.L.Lock()
+    queue = queue[1:]
+    c.L.Unlock()
+    c.Signal() // <- let a goroutine waiting for a condition to know that smth happened
+}
+
+for i:=0; i<10; i++ {
+    c.L.Lock()
+    for len(queue) == 2 {
+        c.Wait()
+    }
+    queue = append(queue, struct{}{})
+    go removeFromQueue(1*time.Second)
+    c.L.Unlock()
+}
+```
+{% endcode %}
+
+**`Brodcast`** - sends signal to all waiting goroutines
+
+{% code lineNumbers="true" %}
+```go
+type Button struct { // contains a condition
+    Clicked *sync.Cond
+}
+
+button := Button{Clicked: sync.NewCond(&sync.Mutex{})}
+
+subscribe := func(c *sync.Cond, fn func()) { // allows us to register functions
+    var goroutineRunning sync.WaitGroup      // to handle signals from conditions
+    goroutineRunning.Add(1)
+    
+    go func() {
+        goroutineRunning.Done()
+        c.L.Lock()
+        defer c.L.Unlock()
+        c.Wait()
+        fn()
+    }()
+    goroutineRunning.Wait()
+    
+    var clickRegistered sync.WaitGroup
+    clickRegistered.Add(3)
+    subscribe(button.Clicked, func() {
+        // do smth
+        clickRegistered.Done()
+    })
+    subscribe(button.Clicked, func() {
+        // do smth
+        clickRegistered.Done()
+    })
+    subscribe(button.Clicked, func() {
+        // do smth
+        clickRegistered.Done()
+    })
+    
+    button.Clicked.Broadcast()
+    clickRegistered.Wait()
+}
 ```
 {% endcode %}
