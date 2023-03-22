@@ -311,3 +311,30 @@ var once sync.Once
 fmt.Println(count) // 1
 </code></pre>
 
+### Pool
+
+_= concurrent-safe implementation of the object pool pattern._
+
+**`Get`** interface - checks wether the are any available instances within the pool to return to the caller, and if not, call its **`New`** member variable to create one.
+
+**`Put`** interface - to put the instance they were working with back in the pool
+
+{% code lineNumbers="true" %}
+```go
+myPool := &sync.Pool{
+    New: func() interface{}{
+        fmt.Println("Creating new instance.")
+        return struct{}{}
+    }
+}
+
+myPool.Get() // no instance available, calls New;
+instance := myPool.Get() // no instance available, calls New;
+myPool.Put(instance) // instances in pool = 1
+myPool.Get() // get instance from pool
+
+// Creating new instance.
+// Creating new instance.
+```
+{% endcode %}
+
