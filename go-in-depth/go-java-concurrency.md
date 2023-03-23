@@ -419,3 +419,131 @@ funct startNetworkDaemin() *sync.WaitGroup {
 }
 </code></pre>
 
+### Channels
+
+can be used to synchronise access of the memory and to communicate information between goroutines.&#x20;
+
+#### **Instantiating**
+
+{% code lineNumbers="true" %}
+```go
+var dataStream chan interface{}
+dataStream = make(chan interface{})
+```
+{% endcode %}
+
+support **unidirectional** flow of data:&#x20;
+
+* channel that can only **read**
+
+```go
+var dataStream <-chan interface{}
+dataStream = make(<-chan interface{})
+```
+
+* channel that can only **send**
+
+```go
+var dataStream chan<- interface{}
+dataStream = make(chan<- interface{})
+```
+
+**Sending/Receiving**&#x20;
+
+{% code lineNumbers="true" %}
+```go
+stringStream := make(chan string)
+go func() {
+    stringStream <- "hello" // pass literal onto channel
+}()
+fmt.Println(<-stringStreams) // read the literal from channel
+```
+{% endcode %}
+
+{% hint style="danger" %}
+* Channels are _**blocking**_.
+* Any goroutine that attempts to write to a channel that is full will wait until the channel has been emptied.
+* Any goroutine that attempts to read from a channel that is empty will wait until at least one item is placed on it.
+{% endhint %}
+
+#### Closing&#x20;
+
+{% code lineNumbers="true" %}
+```go
+stringStream := make(chan string)
+close(stringStream)
+```
+{% endcode %}
+
+#### Ranging over a channel
+
+{% code lineNumbers="true" %}
+```go
+intStream := make(chan int)
+go func() {
+    defer close(intStream)
+    for i:=1; i<=5; i++ {
+        intStream <- i
+    }
+}()
+
+for integer := range intStream {
+    fmt.Printf("%v ", integer)
+}
+
+// 1 2 3 4 5
+```
+{% endcode %}
+
+#### Closing a channel signals to multiple goroutines
+
+<pre class="language-go" data-line-numbers><code class="lang-go"><strong>begin := make(chan interface{})
+</strong>var wg sync.WaitGroup
+for i:=0; i&#x3C;5; i++ {
+    wg.Add(1)
+    go func(i int) {
+        defer wg.Done()
+<strong>        &#x3C;- begin
+</strong>        fmt.Printf("%v has begun\n", i)
+    }()
+}
+
+fmt.Println("unblocking goroutines...")
+<strong>close(begin)
+</strong>wg.Wait()
+</code></pre>
+
+#### Buffered Channels
+
+_channels that are given a capacity when they're instantiated._
+
+{% code lineNumbers="true" %}
+```go
+var dataStream chan interface{}
+dataStream = make(chan interface{}, 4)
+```
+{% endcode %}
+
+{% hint style="warning" %}
+Buffered channels are in-memory FIFO queue for concurrent processes to communicate over.
+{% endhint %}
+
+#### Result of channel operation given a channel's state
+
+| Operation | Channel state      | Result                                                                                  |
+| --------- | ------------------ | --------------------------------------------------------------------------------------- |
+| Read      | nil                | block                                                                                   |
+|           | open and non empty | value                                                                                   |
+|           | open and empty     | block                                                                                   |
+|           | closed             | \<default value>, false                                                                 |
+|           | write only         | compilation error                                                                       |
+| Write     | nil                | block                                                                                   |
+|           | open and non empty | block                                                                                   |
+|           | open and empty     | write value                                                                             |
+|           | closed             | panic                                                                                   |
+|           | receive only       | compilation error                                                                       |
+| close     | nil                | panic                                                                                   |
+|           | open and non empty | closes channel; reads suceed until channel is drained, then reads produce default value |
+|           | open and empty     | closes channel; reads produces default value                                            |
+|           | closed             | panic                                                                                   |
+|           | receive only       | compilation error                                                                       |
