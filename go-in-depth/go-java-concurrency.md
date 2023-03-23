@@ -338,7 +338,9 @@ myPool.Get() // get instance from pool
 ```
 {% endcode %}
 
-Useful for **memory optimisations** as instantiated objects are garbage collected.
+**Uses cases:**&#x20;
+
+* **memory optimisations** as instantiated objects are garbage collected.
 
 {% code lineNumbers="true" %}
 ```go
@@ -374,4 +376,46 @@ wg.Wait()
 fmt.Printf(numCalcsCreated) // 8
 ```
 {% endcode %}
+
+* **warming up a cache of pre-allocated objects** for operations that must run as quickly as possible. (by trying to guard the host machine's memory front-loading the time it takes to get a reference to another object)
+
+<pre class="language-go" data-line-numbers><code class="lang-go">func warmServiceConnCache() *sync.Pool {
+    p := &#x26;sync.Pool {
+        New: connectToService,
+    }
+    for i:=0; i&#x3C;10; i++ {
+        p.Put(p.New())
+    }
+    return p
+}
+
+funct startNetworkDaemin() *sync.WaitGroup {
+    var wg sync.WaitGroup
+    wg.Add(1)
+    go func() {
+<strong>        connPool := warmServiceConnCache()
+</strong>        
+        server, err := net.Listen("tcp", "localhost:8080")
+        if err != nil {
+            log.Fatalf("cannot listem: %v", err)
+        }
+        defer server.Close()
+        
+        wg.Done()
+        
+        for {
+            conn, err := server.Accept()
+            if err != nil {
+                log.Printf("cannot accept connection: %v", err)
+                continue
+            }
+<strong>            svcConn := connPool.Get()
+</strong>            fmt.Fprintln(conn, "")
+<strong>            connPool.Put(svcConn)
+</strong>            conn.Close()
+        }
+    }()
+    return &#x26;wg
+}
+</code></pre>
 
