@@ -547,3 +547,35 @@ Buffered channels are in-memory FIFO queue for concurrent processes to communica
 |           | open and empty     | closes channel; reads produces default value                                            |
 |           | closed             | panic                                                                                   |
 |           | receive only       | compilation error                                                                       |
+
+#### Channel Owners\&Consumers
+
+A channel owner should:
+
+* instantiate the channel.
+* perform writes, or pass ownership to another goroutine.
+* close the channel.
+* encapsulate the previous three things in this list and expose them via a reader channel.
+
+A channel consumer should:&#x20;
+
+* knowing when a channel is closed.
+* be responsible for handling blocking for any reason.
+
+<pre class="language-go" data-line-numbers><code class="lang-go">chanOwner := func() &#x3C;- chan int {
+<strong>    resultStream := make(chan int, 5) // create buffered channel
+</strong>    go func() {
+<strong>        defer close(resultStream) // close the channel
+</strong>        for i:=0; i&#x3C;=5; i++ {
+<strong>            resultStream &#x3C;- i // write to it
+</strong>        }()
+<strong>        return resultStream // return the read-only channel
+</strong>    }
+}
+
+resultStream := chanOwner()
+for result := range resultStream {
+    fmt.Printf("received: %d\n", result)
+}
+fmt.Printf("done receiving")
+</code></pre>
