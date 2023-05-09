@@ -580,7 +580,7 @@ for result := range resultStream {
 fmt.Printf("done receiving")
 </code></pre>
 
-### Deadlocks, Livelocks, and Starvation
+## Deadlocks, Livelocks, and Starvation
 
 #### Deadlocks
 
@@ -593,6 +593,12 @@ _= programs that are actively performing concurrent operations, but these operat
 #### Starvation
 
 _= any situation where a concurrent process cannot get all the resources it needs to perform work._
+
+## Race Condition and Data Race
+
+**Race condition** _occur when two or more operations must execute in the correct order, but the program has not been written so that this order is guaranteed to be maintained._
+
+**Data race** _is when one concurrent operation attempts to read a variable while at some undetermined time another concurrent operation is attempting to write to the same variable._&#x20;
 
 ## Patterns
 
