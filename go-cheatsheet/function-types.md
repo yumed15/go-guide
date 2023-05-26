@@ -1,6 +1,6 @@
 # Function Types
 
-
+_= type to identify a function signature_
 
 {% code lineNumbers="true" %}
 ```go
