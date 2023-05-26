@@ -14,6 +14,7 @@
 ## 📃 Go-CheatSheet
 
 * [Data Types](go-cheatsheet/data-types.md)
+* [Function Types](go-cheatsheet/function-types.md)
 * [Flows](go-cheatsheet/flows.md)
 * [Concurrency](go-cheatsheet/concurrency.md)
 * [Functions](go-cheatsheet/functions.md)
