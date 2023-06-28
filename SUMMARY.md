@@ -3,6 +3,7 @@
 ## ✍ Go-Style-Guide
 
 * [Go-Guide](README.md)
+* [Key Features](go-style-guide/key-features.md)
 * [Interfaces](interfaces.md)
 * [Go Routines](go-routines.md)
 * [Slices, Maps](slices.md)
