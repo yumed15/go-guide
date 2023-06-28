@@ -27,14 +27,7 @@ e.g. In a single-core CPU, you can have concurrency but not parallelism.
 
 ## Concurrency in Go vs Java
 
-| Concept                    | Go                                                                                                                                                                                                                                                                     | Java                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Multithreading             | through **goroutines**                                                                                                                                                                                                                                                 | through threads via **Thread** class or **Runnable** interface                                                                                                                                                                                                                                                                                                                                                                                                              |
-| Memory Space               | goroutines use only <mark style="color:yellow;">**2 KB**</mark>** of memory space**.                                                                                                                                                                                   | threads take <mark style="color:yellow;">**2 MB**</mark>** of memory space**                                                                                                                                                                                                                                                                                                                                                                                                |
-| Communication Coordination | <p>through built in <mark style="color:yellow;"><strong>primivate channels</strong></mark> which are built to handle race conditions => safe and prevents explicit locking; <br><br>the data structure that is shared between goroutines doesn't have to be locked</p> | <ul><li>Threaded programming uses <mark style="color:yellow;"><strong>locks</strong></mark> in order to access a shared variable. These can to lead to deadlocks and race conditions which are difficult to detect.</li><li>Can only speak to one another through <mark style="color:yellow;"><strong>return values</strong></mark> or <mark style="color:yellow;"><strong>shared (volatile) variables</strong></mark> and are highly costly to build and manage.</li></ul> |
-| Scheduling                 | scheduling of goroutines is done by <mark style="color:yellow;">**go runtime**</mark> and hence it is quite faster => context switching is faster                                                                                                                      | the scheduling of threads is done by <mark style="color:yellow;">**OS runtime**</mark> => context switching is slower                                                                                                                                                                                                                                                                                                                                                       |
-| Garbage Collection         | not automatically garbage collected                                                                                                                                                                                                                                    | Once the thread dies its native memory and stack are freed immediately without needing to be GC. However, the `Thread` object is like any other object and it lives until it the GC has decided it can be freed e.g. there is no strong reference to it.                                                                                                                                                                                                                    |
-|                            | thousands of goroutines are multiplexed on one or two OS threads.                                                                                                                                                                                                      | if you launch 1000 threads in JAVA then it would consume lot of resources and these 1000 threads needs to be managed by OS. Moreover each of these threads will be more than 1 MB in size                                                                                                                                                                                                                                                                                   |
+<table><thead><tr><th width="170.33333333333331">Concept</th><th>Go</th><th>Java</th></tr></thead><tbody><tr><td>Multithreading</td><td>through <strong>goroutines</strong></td><td>through threads via <strong>Thread</strong> class or <strong>Runnable</strong> interface</td></tr><tr><td>Memory Space</td><td>goroutines use only <mark style="color:yellow;"><strong>2 KB</strong></mark><strong> of memory space</strong>.</td><td>threads take <mark style="color:yellow;"><strong>2 MB</strong></mark><strong> of memory space</strong></td></tr><tr><td>Communication Coordination</td><td>through built in <mark style="color:yellow;"><strong>primivate channels</strong></mark> which are built to handle race conditions => safe and prevents explicit locking; <br><br>the data structure that is shared between goroutines doesn't have to be locked</td><td><ul><li>Threaded programming uses <mark style="color:yellow;"><strong>locks</strong></mark> in order to access a shared variable. These can to lead to deadlocks and race conditions which are difficult to detect.</li><li>Can only speak to one another through <mark style="color:yellow;"><strong>return values</strong></mark> or <mark style="color:yellow;"><strong>shared (volatile) variables</strong></mark> and are highly costly to build and manage.</li></ul></td></tr><tr><td>Scheduling </td><td>scheduling of goroutines is done by <mark style="color:yellow;"><strong>go runtime</strong></mark> and hence it is quite faster => context switching is faster</td><td>the scheduling of threads is done by <mark style="color:yellow;"><strong>OS runtime</strong></mark> => context switching is slower</td></tr><tr><td>Garbage Collection</td><td>not automatically garbage collected</td><td>Once the thread dies its native memory and stack are freed immediately without needing to be GC. However, the <code>Thread</code> object is like any other object and it lives until it the GC has decided it can be freed e.g. there is no strong reference to it.</td></tr><tr><td></td><td>thousands of goroutines are multiplexed on one or two OS threads.</td><td>if you launch 1000 threads in JAVA then it would consume lot of resources and these 1000 threads needs to be managed by OS. Moreover each of these threads will be more than 1 MB in size</td></tr></tbody></table>
 
 ## **Scheduling**
 
@@ -530,23 +523,7 @@ Buffered channels are in-memory FIFO queue for concurrent processes to communica
 
 #### Result of channel operation given a channel's state
 
-| Operation | Channel state      | Result                                                                                  |
-| --------- | ------------------ | --------------------------------------------------------------------------------------- |
-| Read      | nil                | block                                                                                   |
-|           | open and non empty | value                                                                                   |
-|           | open and empty     | block                                                                                   |
-|           | closed             | \<default value>, false                                                                 |
-|           | write only         | compilation error                                                                       |
-| Write     | nil                | block                                                                                   |
-|           | open and non empty | block                                                                                   |
-|           | open and empty     | write value                                                                             |
-|           | closed             | panic                                                                                   |
-|           | receive only       | compilation error                                                                       |
-| close     | nil                | panic                                                                                   |
-|           | open and non empty | closes channel; reads suceed until channel is drained, then reads produce default value |
-|           | open and empty     | closes channel; reads produces default value                                            |
-|           | closed             | panic                                                                                   |
-|           | receive only       | compilation error                                                                       |
+<table><thead><tr><th width="183.33333333333331">Operation</th><th>Channel state</th><th>Result</th></tr></thead><tbody><tr><td>Read</td><td>nil</td><td>block</td></tr><tr><td></td><td>open and non empty</td><td>value</td></tr><tr><td></td><td>open and empty</td><td>block</td></tr><tr><td></td><td>closed</td><td>&#x3C;default value>, false</td></tr><tr><td></td><td>write only</td><td>compilation error</td></tr><tr><td>Write</td><td>nil</td><td>block</td></tr><tr><td></td><td>open and non empty</td><td>block</td></tr><tr><td></td><td>open and empty</td><td>write value</td></tr><tr><td></td><td>closed</td><td>panic</td></tr><tr><td></td><td>receive only</td><td>compilation error</td></tr><tr><td>close</td><td>nil</td><td>panic</td></tr><tr><td></td><td>open and non empty</td><td>closes channel; reads suceed until channel is drained, then reads produce default value</td></tr><tr><td></td><td>open and empty</td><td>closes channel; reads produces default value</td></tr><tr><td></td><td>closed</td><td>panic</td></tr><tr><td></td><td>receive only</td><td>compilation error</td></tr></tbody></table>
 
 #### Channel Owners\&Consumers
 
@@ -617,10 +594,6 @@ func main() {
 }
 ```
 {% endtab %}
-
-{% tab title="Second Tab" %}
-
-{% endtab %}
 {% endtabs %}
 
 **Race condition** _occur when two or more operations must execute in the correct order, but the program has not been written so that this order is guaranteed to be maintained._
@@ -650,11 +623,9 @@ func main() {
 }
 ```
 {% endtab %}
-
-{% tab title="Second Tab" %}
-
-{% endtab %}
 {% endtabs %}
+
+\=> Can use the _Go race detector_ to detect potential issues.
 
 ## Patterns
 
