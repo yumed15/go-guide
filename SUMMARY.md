@@ -34,3 +34,4 @@
 * [Go Scheduler](go-in-depth/go-scheduler.md)
 * [Go's Garbage Collection](go-in-depth/gos-garbage-collection.md)
 * [Escape Analysis](go-in-depth/escape-analysis.md)
+* [Value/Pointer Receiver](go-in-depth/value-pointer-receiver.md)

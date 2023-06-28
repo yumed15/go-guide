@@ -45,7 +45,7 @@ When the OS you are running on has the ability to handle a system call asynchron
 
 * The asynchronous network system call is completed by the network poller and Goroutine-1 is moved back into the LRQ for the P. Once Goroutine-1 can be context-switched back on the M, the Go related code it’s responsible for can execute again. The big win here is that, to execute network system calls, no extra Ms are needed. The network poller has an OS Thread and it is handling an efficient event loop.
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
 
 ## Synchronous System Calls <a href="#synchronous-system-calls" id="synchronous-system-calls"></a>
 
@@ -75,7 +75,7 @@ helps to balance the Goroutines across all the P’s so the work is better distr
 
 * We have a multi-threaded Go program with two P’s servicing four Goroutines each and a single Goroutine in the GRQ. What happens if one of the P’s services all of its Goroutines quickly?
 
-<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 * Half the Goroutines are taken from P2 and now P1 can execute those Goroutines. What happens if P2 finishes servicing all of its Goroutines and P1 has nothing left in its LRQ?
 
