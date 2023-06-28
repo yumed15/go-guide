@@ -29,7 +29,7 @@ sayHello := func() {
 go sayHello()
 ```
 
-****
+
 
 **Mutex**
 

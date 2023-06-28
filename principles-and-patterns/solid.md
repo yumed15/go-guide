@@ -1,12 +1,6 @@
 # SOLID
 
-| Principle                           | Description                                                                                                                                                                             |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Single responsibility principle** | _“A class/function/type should have one, and only one reason to change”_                                                                                                                |
-| **Open-Closed principle**           | _“A class should be open for extension but closed for modifications”_                                                                                                                   |
-| **Liskov substitution principle**   | _“Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program”_                                                        |
-| **Interface segregation principle** | _“Clients should not be forced to depend on methods they don't use”_                                                                                                                    |
-| **Dependency inversion**            | _“High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details. Details should not depend on abstractions”_ |
+<table><thead><tr><th width="264">Principle</th><th>Description</th></tr></thead><tbody><tr><td><strong>Single responsibility principle</strong></td><td><em>“A class/function/type should have one, and only one reason to change”</em></td></tr><tr><td><strong>Open-Closed principle</strong></td><td><em>“A class should be open for extension but closed for modifications”</em></td></tr><tr><td><strong>Liskov substitution principle</strong></td><td><em>“Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program”</em></td></tr><tr><td><strong>Interface segregation principle</strong></td><td><em>“Clients should not be forced to depend on methods they don't use”</em></td></tr><tr><td><strong>Dependency inversion</strong></td><td><em>“High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details. Details should not depend on abstractions”</em></td></tr></tbody></table>
 
 #### **Single responsibility principle**
 

@@ -46,7 +46,7 @@ for i := 0; i < b.N; i++ {
 Specify container capacity where possible in order to allocate memory for the container up front. This minimises subsequent allocations (by copying and resizing of the container) as elements are added.
 
 *   **Specifying Map Capacity Hints**\
-    ****
+
 
     Where possible, provide capacity hints when initialising maps with `make()`.\
 

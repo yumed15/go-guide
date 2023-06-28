@@ -31,3 +31,4 @@
 ## 📚 Go-In-Depth
 
 * [Go/Java Concurrency](go-in-depth/go-java-concurrency.md)
+* [Go Scheduler](go-in-depth/go-scheduler.md)

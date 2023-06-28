@@ -14,6 +14,7 @@ Inspired by:
 * [The Zen of Go](https://the-zen-of-go.netlify.app/)
 * [Go Styleguide](https://github.com/bahlo/go-styleguide)
 * [Practical Go: Real world advice for writing maintainable Go programs](https://dave.cheney.net/practical-go/presentations/qcon-china.html)
+* [https://www.practical-go-lessons.com/](https://www.practical-go-lessons.com/)
 
 Companies that use Go in production systems:
 
