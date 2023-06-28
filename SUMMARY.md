@@ -32,3 +32,4 @@
 
 * [Go/Java Concurrency](go-in-depth/go-java-concurrency.md)
 * [Go Scheduler](go-in-depth/go-scheduler.md)
+* [Go's Garbage Collection](go-in-depth/gos-garbage-collection.md)

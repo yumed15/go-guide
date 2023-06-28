@@ -55,7 +55,7 @@ Go follows a model of concurrency called the <mark style="color:yellow;">**fork-
 * fork - at any point in the program, a _**child**_ branch of execution can be split off and run concurrently with its _**parent**_
 * join - at some point in the future, the concurrent branches of execution will join back together
 
-![](<../.gitbook/assets/image (5).png>)
+![](<../.gitbook/assets/image (5) (1).png>)
 
 ## **Ways of declaring goroutines** <a href="#goroutines" id="goroutines"></a>
 
