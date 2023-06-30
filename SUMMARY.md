@@ -31,7 +31,8 @@
 ## 📚 Go-In-Depth
 
 * [Go/Java Concurrency](go-in-depth/go-java-concurrency.md)
+* [Concurrency Patterns](go-in-depth/concurrency-patterns.md)
 * [Go Scheduler](go-in-depth/go-scheduler.md)
 * [Go's Garbage Collection](go-in-depth/gos-garbage-collection.md)
-* [Escape Analysis](go-in-depth/escape-analysis.md)
+* [Stack, Heap and Escape Analysis](go-in-depth/stack-heap-and-escape-analysis.md)
 * [Value/Pointer Receiver](go-in-depth/value-pointer-receiver.md)
