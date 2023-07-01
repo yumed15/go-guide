@@ -1,0 +1,16 @@
+# Concurrency Patterns
+
+{% hint style="danger" %}
+This page is a WIP
+{% endhint %}
+
+1. Worker Pool: A worker pool pattern involves creating a fixed number of goroutines (workers) to process incoming tasks from a queue. It's useful for scenarios where you have a large number of independent tasks to execute concurrently, but you want to limit the overall concurrency to avoid overwhelming system resources.
+2. Fan-out/Fan-in: This pattern is about distributing work across multiple goroutines (fan-out) and then combining the results (fan-in). It allows you to parallelize the processing of multiple tasks and merge the outcomes efficiently. It's particularly useful when dealing with batch processing or aggregating results from multiple sources.
+3. Pipelines: Pipelines involve chaining multiple stages of processing together using channels. Each stage performs a specific operation on the incoming data and passes it to the next stage through channels. This pattern enables efficient streaming and processing of data in a structured and modular manner.
+4. Context-Aware Cancellation: The context package in Go provides a mechanism for propagating cancellation signals across goroutines and coordinating the termination of related operations. It's crucial for managing resources and terminating long-running operations gracefully when cancellation is requested.
+5. Rate Limiting: Rate limiting is a technique to control the rate of execution of certain operations or limit resource usage. The golang.org/x/time/rate package provides an implementation of rate limiting in Go. It's beneficial in scenarios where you need to prevent excessive requests or throttle resource-intensive operations.
+6. Circuit Breaking: Circuit breaking is a pattern that helps protect systems from cascading failures. It involves monitoring the state of remote services and temporarily breaking the circuit to prevent further requests when the service is experiencing failures or becoming unresponsive. The github.com/sony/gobreaker package provides an implementation of circuit breaking in Go.
+7. Mutex-Free Data Structures: Go's sync package provides mutexes for protecting shared data in concurrent scenarios. However, sometimes you can achieve better performance by using mutex-free data structures such as atomic operations, lock-free queues, or read-copy-update (RCU) data structures. These alternatives eliminate the need for locking and can improve scalability in certain cases.
+8. Barrier: The barrier pattern enables synchronization among a group of goroutines, ensuring that they all reach a particular point before proceeding. It's useful when you have a set of goroutines that need to coordinate their execution and synchronize their progress.
+9. Context-Specific Behavior: By utilizing Go's context package, you can introduce context-specific behavior in concurrent operations. For example, you can associate deadlines, cancellation signals, or request-scoped data with a context, allowing goroutines to be aware of and respond to such context changes.
+10. Non-blocking Algorithms: In some scenarios, non-blocking algorithms can be used to avoid locks and improve concurrency. Go's atomic package provides support for atomic operations and compare-and-swap (CAS) operations, which can be utilized to build non-blocking algorithms and data structures.

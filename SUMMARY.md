@@ -28,11 +28,17 @@
 * [SOLID](principles-and-patterns/solid.md)
 * [Type Embedding aka Java's Fake Inheritance](principles-and-patterns/type-embedding-aka-javas-fake-inheritance.md)
 
+## 🧠 Memory Management
+
+* [Go Scheduler](memory-management/go-scheduler.md)
+* [Go's Garbage Collection](memory-management/gos-garbage-collection.md)
+* [Stack, Heap and Escape Analysis](memory-management/stack-heap-and-escape-analysis.md)
+
+## 🚦 Concurrency
+
+* [Go/Java Concurrency](concurrency/go-java-concurrency.md)
+* [Concurrency Patterns](concurrency/concurrency-patterns.md)
+
 ## 📚 Go-In-Depth
 
-* [Go/Java Concurrency](go-in-depth/go-java-concurrency.md)
-* [Concurrency Patterns](go-in-depth/concurrency-patterns.md)
-* [Go Scheduler](go-in-depth/go-scheduler.md)
-* [Go's Garbage Collection](go-in-depth/gos-garbage-collection.md)
-* [Stack, Heap and Escape Analysis](go-in-depth/stack-heap-and-escape-analysis.md)
 * [Value/Pointer Receiver](go-in-depth/value-pointer-receiver.md)
