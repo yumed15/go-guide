@@ -32,7 +32,7 @@ func main() {
 ```
 {% endcode %}
 
-<figure><img src="../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 The heap footprint increases with time. At a certain point, the GC runs and cleans up the heap, before it starts growing again.
 
@@ -66,7 +66,7 @@ func main() {
 ```
 {% endcode %}
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
 &#x20;`a` does not escape to the heap, since it is not modified “above” `f`’s stack frame, (only “below”, in `g`’s).
 
@@ -172,7 +172,7 @@ The function `main` has its local variables n and n2. `main` function is assigne
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (20).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4).png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 
@@ -180,7 +180,7 @@ Now as soon as the function `square` returns the value, the variable `n2` will b
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (12).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6).png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 
@@ -188,7 +188,7 @@ Now when the `Println` function is called, the same `unused` memory on stack lef
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (11).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8).png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 {% endtab %}
@@ -198,7 +198,7 @@ Here we have a main function which passes the reference to the variable to a fun
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (5).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19).png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 
@@ -206,7 +206,7 @@ Now as function **inc** `dereferences` the pointer and increments the value that
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (22).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (26).png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 
@@ -214,7 +214,7 @@ As the function `Println` runs, it acquires the memory that was freed up by the 
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (19).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7).png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 {% endtab %}
@@ -224,7 +224,7 @@ So we have a function `main` that has a variable `n` who's value is assigned by 
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (7).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image.png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 
@@ -232,7 +232,7 @@ Now when the function `answer` executes and returns the pointer, the address for
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (25).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9).png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 
@@ -240,7 +240,7 @@ Now when the function `answer` executes and returns the pointer, the address for
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (15).png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 
@@ -250,7 +250,7 @@ _Compiler knows it was NOT safe to leave the pointer variable on the stack._ So 
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (15).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (27).png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 {% endtab %}

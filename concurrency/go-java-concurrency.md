@@ -626,10 +626,3 @@ func main() {
 {% endtabs %}
 
 \=> Can use the _Go race detector_ to detect potential issues.
-
-## Patterns
-
-#### Confinement
-
-
-
