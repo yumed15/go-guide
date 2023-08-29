@@ -40,6 +40,7 @@
 
 * [Go/Java Concurrency](concurrency/go-java-concurrency.md)
 * [Concurrency Patterns](concurrency/concurrency-patterns.md)
+* [Advanced Concurrency](concurrency/advanced-concurrency.md)
 
 ## 📚 Go-In-Depth
 
