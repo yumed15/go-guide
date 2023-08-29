@@ -1,5 +1,10 @@
 # Value/Pointer Receiver
 
+```go
+func (n Node) Name() string {...}   // Value Receiver     <-- creates a copy of the struct
+func (n *Node) Name() string {...}  // Pointer Receiver   <-- doesn't create a copy
+```
+
 ## Function vs Method
 
 **A function** is declared by specifying the types of the arguments, the return values, and the function body.
