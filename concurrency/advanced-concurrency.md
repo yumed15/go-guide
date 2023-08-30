@@ -63,7 +63,7 @@ func Cities(cities ...string) ([]*Info, error) {
 
 
 
-### Bounded concurrency
+### Bounded concurrency via buffered channels
 
 * through the use of **semaphores** by keeping track of how many tasks are running, and to block until there is room for another task to start.
 * to allow up to 10 tasks to run at once, we create a channel with space for 10 items:&#x20;
