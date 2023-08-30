@@ -1,32 +1,18 @@
 # Table of contents
 
-## ✍ Go-Style-Guide
-
 * [Go-Guide](README.md)
-* [Key Features](go-style-guide/key-features.md)
-* [Interfaces](interfaces.md)
-* [Go Routines](go-routines.md)
-* [Slices, Maps](slices.md)
-* [Time](time.md)
-* [DI to Global Variables](di-to-global-variables.md)
-* [Field tags in marshaled structs](go-style-guide/field-tags-in-marshaled-structs.md)
-* [Performance Optimisation](go-style-guide/performance-optimisation.md)
 
-## 📃 Go-CheatSheet
+## 📃 CheatSheet
 
-* [Data Types](go-cheatsheet/data-types.md)
-* [Function Types](go-cheatsheet/function-types.md)
-* [Flows](go-cheatsheet/flows.md)
-* [Concurrency](go-cheatsheet/concurrency.md)
-* [Functions](go-cheatsheet/functions.md)
-* [Methods](go-cheatsheet/methods.md)
-* [Interfaces](go-cheatsheet/interfaces.md)
-* [Generics](go-cheatsheet/generics.md)
-
-## 🧩 Principles and Patterns
-
-* [SOLID](principles-and-patterns/solid.md)
-* [Type Embedding aka Java's Fake Inheritance](principles-and-patterns/type-embedding-aka-javas-fake-inheritance.md)
+* [Key Features](cheatsheet/key-features.md)
+* [Data Types](cheatsheet/data-types.md)
+* [Function Types](cheatsheet/function-types.md)
+* [Flows](cheatsheet/flows.md)
+* [Concurrency](cheatsheet/concurrency.md)
+* [Functions](cheatsheet/functions.md)
+* [Methods](cheatsheet/methods.md)
+* [Interfaces](cheatsheet/interfaces.md)
+* [Generics](cheatsheet/generics.md)
 
 ## 🧠 Memory Management
 
@@ -46,6 +32,26 @@
 * [Concurrency Patterns](concurrency/concurrency-patterns.md)
 * [Advanced Concurrency](concurrency/advanced-concurrency.md)
 
-## 📚 Go-In-Depth
+## 🧱 Data Structures
 
-* [Value/Pointer Receiver](go-in-depth/value-pointer-receiver.md)
+* [Maps and Sets](data-structures/maps-and-sets.md)
+* [Trees and Graphs](data-structures/trees-and-graphs.md)
+
+## 🧩 Principles and Patterns
+
+* [SOLID](principles-and-patterns/solid.md)
+* [Type Embedding aka Java's Fake Inheritance](principles-and-patterns/type-embedding-aka-javas-fake-inheritance.md)
+
+## 📚 In-Depth
+
+* [Value/Pointer Receiver](in-depth/value-pointer-receiver.md)
+
+## ✍ Style-Guide (DOs & DONTs)
+
+* [Interfaces](style-guide-dos-and-donts/interfaces.md)
+* [Go Routines](style-guide-dos-and-donts/go-routines.md)
+* [Slices, Maps](style-guide-dos-and-donts/slices-maps.md)
+* [Time](style-guide-dos-and-donts/time.md)
+* [DI to Global Variables](style-guide-dos-and-donts/di-to-global-variables.md)
+* [Field tags in marshaled structs](style-guide-dos-and-donts/field-tags-in-marshaled-structs.md)
+* [Performance Optimisation](style-guide-dos-and-donts/performance-optimisation.md)
