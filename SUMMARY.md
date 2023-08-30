@@ -38,7 +38,11 @@
 
 ## 🚦 Concurrency
 
-* [Go/Java Concurrency](concurrency/go-java-concurrency.md)
+* [Concurrency vs Parallelism](concurrency/concurrency-vs-parallelism.md)
+* [Scheduling](concurrency/scheduling.md)
+* [Synchronizing goroutines](concurrency/synchronizing-goroutines.md)
+* [Deadlocks, Livelocks, and Starvation](concurrency/deadlocks-livelocks-and-starvation.md)
+* [Race Condition and Data Race](concurrency/race-condition-and-data-race.md)
 * [Concurrency Patterns](concurrency/concurrency-patterns.md)
 * [Advanced Concurrency](concurrency/advanced-concurrency.md)
 

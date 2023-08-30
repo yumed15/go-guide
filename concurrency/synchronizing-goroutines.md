@@ -1,63 +1,10 @@
-# Go/Java Concurrency
+---
+description: via sync package
+---
 
-“Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once.” - Rob Pike
+# Synchronizing goroutines
 
-Concurrency is a property of the code; parallelism is a property of the running program.
-
-> Concurrency is a _**semantic property of a program or system**_.  Concurrency is when multiple tasks are in progress for overlapping periods of time. Concurrency is a conceptual property of a program or a system, it’s more about how the program or system has been designed. Long story short, concurrency happens when you have context switching between sequential tasks.
-
-Using the same example as Kirill Bobrov uses in [Grokking Concurrency](https://www.manning.com/books/grokking-concurrency), imagine that one cook is chopping salad while occasionally stirring the soup on the stove. He has to stop chopping, check the stove top, and then start chopping again, and repeat this process until everything is done.
-
-As you can see, we only have one processing resource here, the chef, and his concurrency is mostly related to logistics; without concurrency, the chef has to wait until the soup on the stove is ready to chop the salad.
-
-> Parallelism is an _**implementation property**_. It resides on the hardware layer.
->
-> Parallelism is about multiple tasks or subtasks of the same task that literally run at the same time on a hardware with multiple computing resources like multi-core processor.
-
-Back in the kitchen, now we have two chefs, one who can do stirring and one who can chop the salad. We’ve divided the work by having another processing resource, another chef.
-
-{% hint style="info" %}
-Concurrency can be parallelised but concurrency does not imply parallelism.\
-e.g. In a single-core CPU, you can have concurrency but not parallelism.
-{% endhint %}
-
-\=> We don't write parallel code, only concurrent code that we hope might be ran in parallel.
-
-<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
-
-## Concurrency in Go vs Java
-
-<table><thead><tr><th width="170.33333333333331">Concept</th><th>Go</th><th>Java</th></tr></thead><tbody><tr><td>Multithreading</td><td>through <strong>goroutines</strong></td><td>through threads via <strong>Thread</strong> class or <strong>Runnable</strong> interface</td></tr><tr><td>Memory Space</td><td>goroutines use only <mark style="color:yellow;"><strong>2 KB</strong></mark><strong> of memory space</strong>.</td><td>threads take <mark style="color:yellow;"><strong>2 MB</strong></mark><strong> of memory space</strong></td></tr><tr><td>Communication Coordination</td><td>through built in <mark style="color:yellow;"><strong>primivate channels</strong></mark> which are built to handle race conditions => safe and prevents explicit locking; <br><br>the data structure that is shared between goroutines doesn't have to be locked</td><td><ul><li>Threaded programming uses <mark style="color:yellow;"><strong>locks</strong></mark> in order to access a shared variable. These can to lead to deadlocks and race conditions which are difficult to detect.</li><li>Can only speak to one another through <mark style="color:yellow;"><strong>return values</strong></mark> or <mark style="color:yellow;"><strong>shared (volatile) variables</strong></mark> and are highly costly to build and manage.</li></ul></td></tr><tr><td>Scheduling </td><td>scheduling of goroutines is done by <mark style="color:yellow;"><strong>go runtime</strong></mark> and hence it is quite faster => context switching is faster</td><td>the scheduling of threads is done by <mark style="color:yellow;"><strong>OS runtime</strong></mark> => context switching is slower</td></tr><tr><td>Garbage Collection</td><td>not automatically garbage collected</td><td>Once the thread dies its native memory and stack are freed immediately without needing to be GC. However, the <code>Thread</code> object is like any other object and it lives until it the GC has decided it can be freed e.g. there is no strong reference to it.</td></tr><tr><td></td><td>thousands of goroutines are multiplexed on one or two OS threads.</td><td>if you launch 1000 threads in JAVA then it would consume lot of resources and these 1000 threads needs to be managed by OS. Moreover each of these threads will be more than 1 MB in size</td></tr></tbody></table>
-
-## **Scheduling**
-
-Go's mechanism for hosting goroutines is an implementation of what's called an <mark style="color:yellow;">**M:N scheduler**</mark>: which states that <mark style="color:yellow;">**M**</mark> number of goroutines can be distributed over <mark style="color:yellow;">**N**</mark> number of OS threads.
-
-<figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
-
-When a Go program starts => it is given a logical processor **P** for every virtual core => Every P is assigned an OS thread **M** => Every Go program is also given an initial G which is the path of execution for a Go program. OS threads are context-switched on and off a core, goroutines are context-switched on and off a M.
-
-There are two run queues in the Go scheduler.
-
-* **Global Run Queue (GRQ)**
-* **Local Run Queue (LRQ)**
-
-Each P is given given a LRQ that manages the goroutines assigned to be executed within the context of P. These goroutines take turn being context-switched on and off the M assigned to that P. GRQ is for goroutines that have not been assigned to a P yet.
-
-<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
-
-When a goroutine is performing an asynchronous system call, P can swap the G off M and put in a different G for execution. However, when a goroutine is performing a synchronous system call, the OS thread is effectively blocked. Go scheduler will create a new thread to continue servicing the existing goroutines in the LRQ.
-
-<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
-
-Go follows a model of concurrency called the <mark style="color:yellow;">**fork-join model**</mark>:
-
-* fork - at any point in the program, a _**child**_ branch of execution can be split off and run concurrently with its _**parent**_
-* join - at some point in the future, the concurrent branches of execution will join back together
-
-![](<../.gitbook/assets/image (5) (1).png>)
-
-## **Ways of declaring goroutines** <a href="#goroutines" id="goroutines"></a>
+### **Ways of declaring goroutines** <a href="#goroutines" id="goroutines"></a>
 
 ```go
 func main() {
@@ -81,8 +28,6 @@ sayHello := func() {
 }
 go sayHello()
 ```
-
-## **Synchronizing goroutines -** via sync package <a href="#goroutines" id="goroutines"></a>
 
 To make sure your goroutines execute before the main goroutine we need <mark style="color:yellow;">**join points**</mark>. These can be created via:
 
@@ -557,72 +502,3 @@ for result := range resultStream {
 fmt.Printf("done receiving")
 </code></pre>
 
-## Deadlocks, Livelocks, and Starvation
-
-#### Deadlocks
-
-_= program in which all concurrent processes are waiting on one another._
-
-#### Livelocks
-
-_= programs that are actively performing concurrent operations, but these operations do nothing to move the state of the program forward._
-
-#### Starvation
-
-_= any situation where a concurrent process cannot get all the resources it needs to perform work._
-
-## Race Condition and Data Race
-
-**Data race** _is when one concurrent operation attempts to read a variable while at some undetermined time another concurrent operation is attempting to write to the same variable._&#x20;
-
-* occurs when two goroutines access the same variable concurrently and at least one of the accesses is a write
-
-{% tabs %}
-{% tab title="Data Race Condition" %}
-```go
-package main
-import "fmt"
-
-func main() {
-    number := 0;
-    
-    go func(){
-      number++ //reading and modifying the value of 'number'
-    }()
-
-    fmt.Println(number) //reading the value of 'number'
-}
-```
-{% endtab %}
-{% endtabs %}
-
-**Race condition** _occur when two or more operations must execute in the correct order, but the program has not been written so that this order is guaranteed to be maintained._
-
-{% tabs %}
-{% tab title="Race Confition" %}
-```go
-package main
-import "fmt"
-
-func deposit(balance *int,amount int){
-    *balance += amount //add amount to balance
-}
-
-func withdraw(balance *int, amount int){
-    *balance -= amount //subtract amount from balance
-}
-
-func main() {
-    balance := 100 
-    
-    go deposit(&balance,10) //depositing 10
-
-    withdraw(&balance, 50) //withdrawing 50
-
-    fmt.Println(balance) 
-}
-```
-{% endtab %}
-{% endtabs %}
-
-\=> Can use the _Go race detector_ to detect potential issues.
