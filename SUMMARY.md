@@ -2,17 +2,17 @@
 
 * [Go-Guide](README.md)
 
-## 📃 CheatSheet
+## 📃 Key Concepts
 
-* [Key Features](cheatsheet/key-features.md)
-* [Data Types](cheatsheet/data-types.md)
-* [Function Types](cheatsheet/function-types.md)
-* [Flows](cheatsheet/flows.md)
-* [Concurrency](cheatsheet/concurrency.md)
-* [Functions](cheatsheet/functions.md)
-* [Methods](cheatsheet/methods.md)
-* [Interfaces](cheatsheet/interfaces.md)
-* [Generics](cheatsheet/generics.md)
+* [Key Features](key-concepts/key-features.md)
+* [Data Types](key-concepts/data-types.md)
+* [Function Types](key-concepts/function-types.md)
+* [Flows](key-concepts/flows.md)
+* [Concurrency](key-concepts/concurrency.md)
+* [Functions](key-concepts/functions.md)
+* [Methods](key-concepts/methods.md)
+* [Interfaces and Embedding](key-concepts/interfaces-and-embedding.md)
+* [Generics](key-concepts/generics.md)
 
 ## 🧠 Memory Management
 
@@ -40,7 +40,6 @@
 ## 🧩 Principles and Patterns
 
 * [SOLID](principles-and-patterns/solid.md)
-* [Type Embedding aka Java's Fake Inheritance](principles-and-patterns/type-embedding-aka-javas-fake-inheritance.md)
 
 ## 📚 In-Depth
 

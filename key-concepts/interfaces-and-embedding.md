@@ -1,53 +1,61 @@
-# Type Embedding aka Java's Fake Inheritance
+# Interfaces and Embedding
+
+**An interface** = type that specifies a set of method signatures. When a concrete type provides definitions for all the methods in an interface, it is said to implement the interface.
+
+{% code lineNumbers="true" %}
+```go
+type Shape interface {
+  Area() float64
+  Perimeter() float64
+}
+
+func (r Rectangle) Area() float64 {
+  return r.Length * r.Width
+}
+
+func (r Rectangle) Perimeter() float64 {
+  return 2 * (r.Length + r.Width)
+}
+
+type Rectangle struct {
+  Length, Width float64
+}
+
+func main() {
+  var r Shape = Rectangle{Length: 3, Width: 4}
+  fmt.Printf("Type of r: %T, Area: %v, Perimeter: %v.", r, r.Area(), r.Perimeter())
+}
+```
+{% endcode %}
+
+**Embedding** - allows one struct type to include another struct, inheriting the fields and methods of the embedded type. It is Go's mechanism to achieve composition over traditional inheritance.
+
+{% code lineNumbers="true" %}
+```go
+type Address struct {
+    Street, City, State string
+}
+
+type Person struct {
+    Name string
+    Address
+}
+
+p := Person{
+    Name:    "Alice",
+    Address: Address{"123 Main St", "Anytown", "CA"},
+}
+fmt.Println(p.Street)  // Output: 123 Main St
+```
+{% endcode %}
+
+Embedding provides a way to "inherit" methods.&#x20;
+
+But it's not inheritance because Go doesn't have the keyword <mark style="color:red;">**this**</mark>**,** also we <mark style="color:red;">**can't override**</mark> the embedded's method implementation.
 
 {% hint style="danger" %}
 **Type embedding isn't inheritance, and pretending it is will lead to bugs.**
 {% endhint %}
-
-It's possible to embed a type inside another type by using a struct.
-
-```go
-type inner struct {
-    a int
-}
-
-type outer struct {
-    inner
-    b int
-}
-
-var x outer
-fmt.Printf("inner.a is %d", x.a)
-```
-
-which allows you to share methods on the embedded type (which looks like inheritance but it's not)
-
-```go
-type printer interface {
-	print()
-}
-
-type inner struct {
-	a int
-}
-
-func (i inner) print() {
-	fmt.Printf("a is %d", i.a)
-}
-
-type outer struct {
-	inner
-	b int
-}
-
-func main() {
-	var x printer
-	x = outer{inner{1}, 2}
-	x.print()
-}
-```
-
-not inheritance because Go doesn't have the keyword <mark style="color:red;">**this**</mark>**,** also we <mark style="color:red;">**can't override**</mark> the embedded's method implementation.
 
 {% tabs %}
 {% tab title="Java" %}
