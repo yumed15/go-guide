@@ -96,3 +96,54 @@ func Cities(cities ...string) ([]*Info, error) {
     return res, nil
 }
 </code></pre>
+
+
+
+### Weighted bounded concurrency
+
+* not all tasks are equally expensive => instead of reasoning about the number of tasks we want to run concurrently, we come up with a "cost" for every task and acquire and release that cost from a semaphore.
+* [golang.org/x/sync/sempahore](https://pkg.go.dev/golang.org/x/sync@v0.0.0-20190911185100-cd5d95a43a6e/semaphore?tab=doc) package provides a weighted semaphore implementation
+* `sem <- struct{}{}` operation is called "Acquire"&#x20;
+  * `semaphore.Acquire` method returns an error; that is because it can be used with the `context` package to abort the operation early.
+* `<-sem` operation is called "Release"
+
+{% code lineNumbers="true" %}
+```go
+// let's pretend the cost varies with the length of the city name
+
+func Cities(cities ...string) ([]*Info, error) {
+    ctx := context.TODO() // replace with a real context
+    var g errgroup.Group
+    var mu sync.Mutex
+    res := make([]*Info, len(cities)) // res[i] corresponds to cities[i]
+    sem := semaphore.NewWeighted(100) // 100 chars processed concurrently
+    for i, city := range cities {
+        i, city := i, city // create locals for closure below
+        cost := int64(len(city))
+        if err := sem.Acquire(ctx, cost); err != nil {
+            break
+        }
+        g.Go(func() error {
+            info, err := City(city)
+            mu.Lock()
+            res[i] = info
+            mu.Unlock()
+            sem.Release(cost)
+            return err
+        })
+    }
+    if err := g.Wait(); err != nil {
+        return nil, err
+    } else if err := ctx.Err(); err != nil {
+        return nil, err
+    }
+    return res, nil
+}
+```
+{% endcode %}
+
+
+
+Resources:
+
+* [https://encore.dev/blog/advanced-go-concurrency](https://encore.dev/blog/advanced-go-concurrency)
