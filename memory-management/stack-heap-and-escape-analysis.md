@@ -224,7 +224,7 @@ So we have a function `main` that has a variable `n` who's value is assigned by 
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (28).png" alt="" width="375"><figcaption></figcaption></figure>
 
 </div>
 

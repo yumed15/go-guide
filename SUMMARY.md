@@ -18,7 +18,7 @@
 * [Go's Garbage Collection](memory-management/gos-garbage-collection.md)
 * [Stack, Heap and Escape Analysis](memory-management/stack-heap-and-escape-analysis.md)
 * [Benchmarking, Profiling, Tracing](memory-management/benchmarking-profiling-tracing.md)
-* [Memory Reclamation](memory-management/memory-reclamation.md)
+* [Memory Optimisation Techniques](memory-management/memory-optimisation-techniques.md)
 
 ## 🚦 Concurrency
 
