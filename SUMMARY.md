@@ -17,7 +17,7 @@
 * [Go Scheduler](memory-management/go-scheduler.md)
 * [Go's Garbage Collection](memory-management/gos-garbage-collection.md)
 * [Stack, Heap and Escape Analysis](memory-management/stack-heap-and-escape-analysis.md)
-* [Memory Profiling](memory-management/memory-profiling.md)
+* [Benchmarking, Profiling, Tracing](memory-management/benchmarking-profiling-tracing.md)
 * [Memory Reclamation](memory-management/memory-reclamation.md)
 
 ## 🚦 Concurrency
