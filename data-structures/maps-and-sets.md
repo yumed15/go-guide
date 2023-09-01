@@ -1,3 +1,0 @@
-# Maps and Sets
-
-\[WIP]

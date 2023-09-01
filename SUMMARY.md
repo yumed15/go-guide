@@ -6,10 +6,11 @@
 
 * [Key Features](key-concepts/key-features.md)
 * [Data Types](key-concepts/data-types.md)
+* [Functions](key-concepts/functions.md)
 * [Function Types](key-concepts/function-types.md)
 * [Flows](key-concepts/flows.md)
 * [Concurrency](key-concepts/concurrency.md)
-* [Functions](key-concepts/functions.md)
+* [Functions](key-concepts/functions-1.md)
 * [Methods](key-concepts/methods.md)
 * [Interfaces and Embedding](key-concepts/interfaces-and-embedding.md)
 * [Generics](key-concepts/generics.md)
@@ -34,8 +35,13 @@
 
 ## 🧱 Data Structures
 
-* [Maps and Sets](data-structures/maps-and-sets.md)
+* [Persistent Collections](data-structures/persistent-collections.md)
 * [Trees and Graphs](data-structures/trees-and-graphs.md)
+* [Synchronization and Lock-Free DS](data-structures/synchronization-and-lock-free-ds.md)
+* [Probabilistic DS](data-structures/probabilistic-ds.md)
+* [Spatial Data Structures](data-structures/spatial-data-structures.md)
+* [Cache-Oblivious DS](data-structures/cache-oblivious-ds.md)
+* [External Memory DS](data-structures/external-memory-ds.md)
 
 ## 🧩 Principles and Patterns
 
