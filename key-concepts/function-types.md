@@ -1,10 +1,6 @@
 # Function Types
 
-_= type to identify a function signature_
-
-
-
-Example 1
+### **Function Signatures and Type Aliases**
 
 {% code lineNumbers="true" %}
 ```go
@@ -21,40 +17,36 @@ GetTransactions(ctx context.Context, opts ...GetTransactionsOptsFn) ([]Transacti
 ```
 {% endcode %}
 
-
-
 {% code lineNumbers="true" %}
 ```go
 fromDate := time.Now().AddDate(0, 0, -4)
 toDate := time.Now().AddDate(0, 0, 1)
-txs, err := b.TymebankClient().GetTransactions(ctx, tymebank.WithTimeRange(fromDate, toDate))
+txs, err := GetTransactions(ctx, WithTimeRange(fromDate, toDate))
 ```
 {% endcode %}
 
+### **Variadics**
 
-
-Example 2
+* allow a function to accept any number of parameters.
 
 ```go
-package main
-
-import "fmt"
-
-type area func(int, int) int
-
-func main() {
-    areaF := getAreaFunc()
-    print(2, 3, areaF)
-
-}
-
-func print(x, y int, a area) {
-    fmt.Printf("Area is: %d\n", a(x, y))
-}
-
-func getAreaFunc() area {
-    return func(x, y int) int {
-        return x * y
+// `nums` is treated like a slice of int
+func sum(nums ...int) int {
+    sum := 0
+    // iterate through each argument to the function
+    for _, n := range nums {
+        sum += n
     }
+    return sum
 }
+
+a := []int{1, 2, 3}
+b := []int{4, 5, 6}
+
+all := append(a, b...)     // slices can be expanded with ...
+answer := sum(all...)      // each element will be an argument to the function
+
+// same as above
+answer = sum(1, 2, 3, 4, 5, 6)    // many arguments
 ```
+

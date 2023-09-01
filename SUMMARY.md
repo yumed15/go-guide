@@ -5,13 +5,10 @@
 ## 📃 Key Concepts
 
 * [Key Features](key-concepts/key-features.md)
-* [Data Types](key-concepts/data-types.md)
+* [Basic Cheatsheet](key-concepts/basic-cheatsheet.md)
 * [Functions](key-concepts/functions.md)
 * [Function Types](key-concepts/function-types.md)
-* [Flows](key-concepts/flows.md)
-* [Concurrency](key-concepts/concurrency.md)
-* [Functions](key-concepts/functions-1.md)
-* [Methods](key-concepts/methods.md)
+* [Value/Pointer Receiver](key-concepts/value-pointer-receiver.md)
 * [Interfaces and Embedding](key-concepts/interfaces-and-embedding.md)
 * [Generics](key-concepts/generics.md)
 
@@ -46,10 +43,6 @@
 ## 🧩 Principles and Patterns
 
 * [SOLID](principles-and-patterns/solid.md)
-
-## 📚 In-Depth
-
-* [Value/Pointer Receiver](in-depth/value-pointer-receiver.md)
 
 ## ✍ Style-Guide (DOs & DONTs)
 
