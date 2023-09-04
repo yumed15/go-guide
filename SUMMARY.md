@@ -30,6 +30,11 @@
 * [Concurrency Patterns](concurrency/concurrency-patterns.md)
 * [Advanced Concurrency](concurrency/advanced-concurrency.md)
 
+## 🧩 Principles and Patterns
+
+* [SOLID](principles-and-patterns/solid.md)
+* [Functional Options Pattern](principles-and-patterns/functional-options-pattern.md)
+
 ## 🧱 Data Structures
 
 * [Persistent Collections](data-structures/persistent-collections.md)
@@ -39,10 +44,6 @@
 * [Spatial Data Structures](data-structures/spatial-data-structures.md)
 * [Cache-Oblivious DS](data-structures/cache-oblivious-ds.md)
 * [External Memory DS](data-structures/external-memory-ds.md)
-
-## 🧩 Principles and Patterns
-
-* [SOLID](principles-and-patterns/solid.md)
 
 ## ✍ Style-Guide (DOs & DONTs)
 
