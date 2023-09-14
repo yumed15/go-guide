@@ -40,7 +40,7 @@ sayHello := func() {
 <strong>    defer wg.Done() // &#x3C;- before we exit the goroutine, we indicate to the WaitGroup that we have exited
 </strong>    fmt.Println("hello")
 }
-<strong>wg.add(1) // &#x3C;- one goroutine is starting
+<strong>wg.Add(1) // &#x3C;- one goroutine is starting
 </strong>go sayHello() 
 <strong>wg.Wait() // &#x3C;---- join point
 </strong></code></pre>
@@ -121,7 +121,7 @@ for i := 0; i&#x3C;=5; i++ {
     go func() {
         defer arithmetic.Done()
         increment()
-    }
+    }()
 }
 
 for i := 0; i&#x3C;=5; i++ {
@@ -129,7 +129,7 @@ for i := 0; i&#x3C;=5; i++ {
     go func() {
         defer arithmetic.Done()
         decrement()
-    }
+    }()
 }
 
 </code></pre>
@@ -394,7 +394,7 @@ stringStream := make(chan string)
 go func() {
     stringStream <- "hello" // pass literal onto channel
 }()
-fmt.Println(<-stringStreams) // read the literal from channel
+fmt.Println(<-stringStream) // read the literal from channel
 ```
 {% endcode %}
 

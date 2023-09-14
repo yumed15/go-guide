@@ -11,19 +11,40 @@ package main
 import "fmt"
 
 func main() {
-    number := 0;
-    
-    go func(){
-      number++ //reading and modifying the value of 'number'
-    }()
-
-    fmt.Println(number) //reading the value of 'number'
+   wait := make(chan struct{})
+   n := 0
+   go func() {
+      n++ // read, increment, write
+      close(wait)
+   }()
+   n++ // conflicting access
+   <-wait
+   fmt.Println(n) // Output: <unspecified>
 }
 ```
 {% endtab %}
+
+{% tab title="Fix" %}
+{% code lineNumbers="true" %}
+```go
+func main() {
+   ch := make(chan int)
+   go func() {
+      n := 0 // A local variable is only visible to one goroutine.
+      n++
+      ch <- n // The data leaves one goroutine...
+   }()
+   
+   n := <-ch // ...and arrives safely in another.
+   n++
+   fmt.Println(n) // Output: 2
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
-**Race condition** _occur when two or more operations must execute in the correct order, but the program has not been written so that this order is guaranteed to be maintained._
+**Race condition** _occurs when two or more operations must execute in the correct order, but the program has not been written so that this order is guaranteed to be maintained._
 
 {% tabs %}
 {% tab title="Race Confition" %}
@@ -31,7 +52,7 @@ func main() {
 package main
 import "fmt"
 
-func deposit(balance *int,amount int){
+func deposit(balance *int, amount int){
     *balance += amount //add amount to balance
 }
 
