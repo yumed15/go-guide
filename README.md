@@ -30,3 +30,6 @@ Companies that use Go in production systems:
 * Shopify
 * Pinterest
 * Slack
+* Monzo
+* Dojo Digital
+* Checkout ProcessOut
