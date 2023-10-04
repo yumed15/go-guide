@@ -33,3 +33,6 @@ Companies that use Go in production systems:
 * Monzo
 * Dojo Digital
 * Checkout ProcessOut
+* Deliveroo
+* Cloudflare
+* Teya
