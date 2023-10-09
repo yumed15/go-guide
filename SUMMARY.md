@@ -11,6 +11,7 @@
 * [Value/Pointer Receiver](key-concepts/value-pointer-receiver.md)
 * [Interfaces and Embedding](key-concepts/interfaces-and-embedding.md)
 * [Generics](key-concepts/generics.md)
+* [Interview Questions](key-concepts/interview-questions.md)
 
 ## 🧠 Memory Management
 
