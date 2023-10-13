@@ -8,6 +8,24 @@
 
 
 
+### Types
+
+* basic: **numbers**, **booleans**, **strings**
+* aggregate: **arrays**, **structs**
+* reference: **pointers**, **slices**, **maps**, **functions**, **channels**
+  * slices consists of 3 elements: pointers(used to store the memory address of another variable), length(no of elements present in array) and capacity(size to which an array can expand or shrink)
+  * functions in a slice: copy, append
+* **interface**
+
+```go
+// Remove from slice at index
+func remove(slice []int, index int) []int {
+    return append(slice[:index], slice[index+1:]...)
+}
+```
+
+
+
 ### **Memory Management**&#x20;
 
 <mark style="color:yellow;">**escape analysis**</mark> = method used to determine which variables should be allocated on the stack of a goroutine and which variables should be allocated on the heap.
