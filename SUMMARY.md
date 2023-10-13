@@ -5,13 +5,14 @@
 ## 📃 Key Concepts
 
 * [Key Features](key-concepts/key-features.md)
-* [Basic Cheatsheet](key-concepts/basic-cheatsheet.md)
+* [Cheatsheets](key-concepts/cheatsheets/README.md)
+  * [Basic Cheatsheet](key-concepts/cheatsheets/basic-cheatsheet.md)
+  * [Interview Cheatsheet](key-concepts/cheatsheets/interview-cheatsheet.md)
 * [Functions](key-concepts/functions.md)
 * [Function Types](key-concepts/function-types.md)
 * [Value/Pointer Receiver](key-concepts/value-pointer-receiver.md)
 * [Interfaces and Embedding](key-concepts/interfaces-and-embedding.md)
 * [Generics](key-concepts/generics.md)
-* [Interview Questions](key-concepts/interview-questions.md)
 
 ## 🧠 Memory Management
 
