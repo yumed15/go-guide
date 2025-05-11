@@ -47,7 +47,7 @@
 * [Cache-Oblivious DS](data-structures/cache-oblivious-ds.md)
 * [External Memory DS](data-structures/external-memory-ds.md)
 
-## ✍ Style-Guide (DOs & DONTs)
+## ✍️ Style-Guide (DOs & DONTs)
 
 * [Interfaces](style-guide-dos-and-donts/interfaces.md)
 * [Go Routines](style-guide-dos-and-donts/go-routines.md)

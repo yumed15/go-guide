@@ -1,10 +1,20 @@
 # Interview Cheatsheet
 
-### **Keywords**
+**Keywords**
 
 <mark style="color:yellow;">**defer**</mark> = language feature that allows you to schedule a function call to be executed when the surrounding function completes, regardless of how it completes
 
 <mark style="color:yellow;">**context**</mark> = provides a way to propagate request-scoped values, deadlines, and cancellations across Goroutines, allowing for better control and management of concurrent operations.
+
+### Code Organisation
+
+* Structure by <mark style="color:yellow;">**Domain, Not Layer**</mark>
+* Organize packages by <mark style="color:yellow;">domain/functionality</mark> rather than by layers (e.g., users/, orders/, payment/ instead of models/, controllers/, services/)
+* Each package should have a clear, single responsibility
+* Minimize dependencies between packages to reduce coupling
+* Design packages around data hiding—not all types need to be exported
+* Keep exported names clean and consistent with Go conventions
+* Package size - Aim for packages that are large enough to provide useful abstractions, but small enough to understand easily
 
 
 
@@ -24,6 +34,10 @@ func remove(slice []int, index int) []int {
 }
 ```
 
+<mark style="color:yellow;">**Arrays = Value types**</mark> Arrays are value types, which means when you assign an array to a new variable or pass it to a function, the entire array is copied.
+
+<mark style="color:yellow;">**Slices = Reference types**</mark> Slices are reference types, so when you assign a slice to a new variable or pass it to a function, they refer to the same underlying array.
+
 
 
 ### **Memory Management**&#x20;
@@ -37,6 +51,7 @@ func remove(slice []int, index int) []int {
 <mark style="color:yellow;">**memory leaks**</mark> - happen when allocated memory is not properly released or deallocated by the program.&#x20;
 
 * a string is allocated memory inside an infinite loop
+* sending values from a channel that has no receiver
 
 
 
@@ -46,7 +61,7 @@ func remove(slice []int, index int) []int {
 
 * managed by the Go runtime (unlike threads that are managed by the os's kernel)
 
-<mark style="color:yellow;">**mutex**</mark>** =** a synchronization primitive used to protect shared resources from concurrent access. It provides a way to allow only one Goroutine to access the protected resource at a time, ensuring exclusive access and preventing data races.
+<mark style="color:yellow;">**mutex**</mark>**&#x20;=** a synchronization primitive used to protect shared resources from concurrent access. It provides a way to allow only one Goroutine to access the protected resource at a time, ensuring exclusive access and preventing data races.
 
 <mark style="color:yellow;">**channels**</mark> = core language feature used for communication and synchronization between Goroutines. They provide a way for Goroutines to send and receive values concurrently, ensuring safe communication and coordination.
 
